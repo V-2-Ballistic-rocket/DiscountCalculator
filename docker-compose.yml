@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  php-fpm:
+    build: ./docker/php-fpm
+    volumes:
+      - ./:/app
+    environment:
+      PHP_IDE_CONFIG: "serverName=docker"
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/app
+      - ./var/log/nginx:/var/log/nginx
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+    working_dir: /app
