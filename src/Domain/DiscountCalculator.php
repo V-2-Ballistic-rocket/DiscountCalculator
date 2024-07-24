@@ -48,7 +48,11 @@ class DiscountCalculator
                 $discount = $ticket->price * 0.05;
                 return $discount > 1500 ? 1500 : $discount;
             }
-            if($ticket->purchaseDate < new \DateTime($nowYear + 1 . '-02-01')){ //что покупка в январе или ранее
+        }
+        //что путешествие пройдет в промежутке с марта до сентября этого года включительно, но покупка будет до февраля
+        if (new \DateTime($nowYear . '-03-01') <= $ticket->tripDate && $ticket->tripDate < new \DateTime($nowYear . '-10-01'))
+        {
+            if($ticket->purchaseDate < new \DateTime($nowYear . '-02-01')){ //что покупка в январе или ранее
                 $discount = $ticket->price * 0.03;
                 return $discount > 1500 ? 1500 : $discount;
             }
