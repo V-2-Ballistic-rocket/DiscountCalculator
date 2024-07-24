@@ -21,13 +21,13 @@ class DiscountController extends AbstractController
     {
         $currentDate = date('d-m-Y');
         // dd($request->query->get('birth_date'));
-        echo $this->travelManager->getNewPrice(new PurchaseParametersDto(
+        $finalPrice = $this->travelManager->getNewPrice(new PurchaseParametersDto(
             intval($request->query->get('price')),
             $request->query->get('birth_date'),
             $request->query->get('trip_date', (string)$currentDate),
             $request->query->get('purchase_date', (string)$currentDate)
         ));
         
-        return new Response("");
+        return new Response("$finalPrice");
     }
 }
